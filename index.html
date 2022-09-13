@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        #panda-container {
+            position: relative;
+            padding-top: 56.25%;
+        }
+        #items-container {
+            position: absolute;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+        }
+        #items-container > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            cursor: pointer;
+            position: relative;
+        }
+        .icon {
+            max-width: 130px;
+            max-height: 130px;
+            z-index: 6;
+        }
+        .audio_play_button {
+            position: absolute;
+            right: 16px;
+            top: 10px;
+            width: 130px;
+            height: 40px;
+            z-index: 6;
+        }
+    </style>        
+    <div id="panda-container">
+        <!-- Custom muted indicator items below -->
+        <div id="items-container">
+            <div>
+                <img src="https://images.clickfunnels.com/90/584f1404c042eea24de55c3e0fd1b3/.jpg" class="audio_play_button"/>
+                <img src="https://images.clickfunnels.com/d2/8cfbb6f4e6475ba2aef6515de9467c/big-play-button-1-.png" class="icon"/>
+            </div>
+        </div>
+        <!-- Panda Video iframe below -->
+        <iframe 
+            id="panda-5123ab3b-9080-4d36-a7e7-f744fc28edf6" 
+            src="https://player-vz-12dc5645-25b.tv.pandavideo.com.br/embed/?v=5123ab3b-9080-4d36-a7e7-f744fc28edf6&controls=play-large&alternativeProgress=true&autoplay=true&muted=true&smartAutoplay=false&hidedControls=play" 
+            style="border:none;position:absolute;top:0;left:0;" 
+            allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture" 
+            allowfullscreen=true 
+            width="100%" 
+            height="100%">
+        </iframe>
+    </div>
+    <script>
+        const API_ENDPOINT = 'https://player-staging.pandavideo.com.br/api.v2.js';
+        const CUSTOM_ITEMS_CONTAINER = document.querySelector('#items-container');
+        const IFRAME = document.querySelectorAll(`iframe[id^=panda-]`)[0];
+        const IFRAME_ID = IFRAME.getAttribute('id');
+        
+        if(!document.querySelector(`script[src='${API_ENDPOINT}']`)) { 
+            let s = document.createElement('script'); 
+            s.src = API_ENDPOINT; 
+            s.async = true; 
+            document.head.appendChild(s);
+        }
+        
+        window.pandascripttag = window.pandascripttag || [];
+        window.pandascripttag.push(function () {
+            const p = new PandaPlayer(IFRAME_ID , {
+                onReady() {
+                    CUSTOM_ITEMS_CONTAINER.onclick = function () { // on click on custom muted indicator items container
+                        CUSTOM_ITEMS_CONTAINER.style.display = 'none'
+                        IFRAME.contentWindow.postMessage({type:'volume', parameter:1}, '*');
+                        IFRAME.contentWindow.postMessage({type:'currentTime', parameter:0}, '*');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
