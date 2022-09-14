@@ -59,16 +59,9 @@
             height="100%">
         </iframe>
     </div>
+    <script async src=https://player.pandavideo.com.br/api.v2.js></script>
     <script>
         const CUSTOM_ITEMS_CONTAINER = document.querySelector('#items-container');
-        
-        if(!document.querySelector(`script#panda-api-js`)) { 
-            let s = document.createElement('script'); 
-            s.src = 'https://player-staging.pandavideo.com.br/api.v2.js';
-            s.async = true; 
-            s.id = 'panda-api-js';
-            document.head.appendChild(s);
-        }
         
         window.pandascripttag = window.pandascripttag || [];
         window.pandascripttag.push(function () {
