@@ -60,26 +60,24 @@
         </iframe>
     </div>
     <script>
-        const API_ENDPOINT = 'https://player-staging.pandavideo.com.br/api.v2.js';
         const CUSTOM_ITEMS_CONTAINER = document.querySelector('#items-container');
-        const IFRAME = document.querySelectorAll(`iframe[id^=panda-]`)[0];
-        const IFRAME_ID = IFRAME.getAttribute('id');
         
-        if(!document.querySelector(`script[src='${API_ENDPOINT}']`)) { 
+        if(!document.querySelector(`script[src='https://player-staging.pandavideo.com.br/api.v2.js']`)) { 
             let s = document.createElement('script'); 
-            s.src = API_ENDPOINT; 
+            s.src = 'https://player-staging.pandavideo.com.br/api.v2.js'; 
             s.async = true; 
             document.head.appendChild(s);
         }
         
         window.pandascripttag = window.pandascripttag || [];
         window.pandascripttag.push(function () {
-            const p = new PandaPlayer(IFRAME_ID , {
+            const p = new PandaPlayer(document.querySelectorAll(`iframe[id^=panda-]`)[0].getAttribute('id') , {
                 onReady() {
-                    CUSTOM_ITEMS_CONTAINER.onclick = function () { // on click on custom muted indicator items container
+                    // on click on custom muted indicator items container
+                    CUSTOM_ITEMS_CONTAINER.onclick = function () {
                         CUSTOM_ITEMS_CONTAINER.style.display = 'none'
-                        IFRAME.contentWindow.postMessage({type:'volume', parameter:1}, '*');
-                        IFRAME.contentWindow.postMessage({type:'currentTime', parameter:0}, '*');
+                        document.querySelectorAll(`iframe[id^=panda-]`)[0].contentWindow.postMessage({type:'volume', parameter:1}, '*');
+                        document.querySelectorAll(`iframe[id^=panda-]`)[0].contentWindow.postMessage({type:'currentTime', parameter:0}, '*');
                     }
                 }
             });
