@@ -62,10 +62,11 @@
     <script>
         const CUSTOM_ITEMS_CONTAINER = document.querySelector('#items-container');
         
-        if(!document.querySelector(`script[src='https://player-staging.pandavideo.com.br/api.v2.js']`)) { 
+        if(!document.querySelector(`script#panda-api-js`)) { 
             let s = document.createElement('script'); 
-            s.src = 'https://player-staging.pandavideo.com.br/api.v2.js'; 
+            s.src = 'https://player-staging.pandavideo.com.br/api.v2.js';
             s.async = true; 
+            s.setAttribute('id', 'panda-api-js');
             document.head.appendChild(s);
         }
         
@@ -75,9 +76,9 @@
                 onReady() {
                     // on click on custom muted indicator items container
                     CUSTOM_ITEMS_CONTAINER.onclick = function () {
-                        CUSTOM_ITEMS_CONTAINER.style.display = 'none'
-                        document.querySelectorAll(`iframe[id^=panda-]`)[0].contentWindow.postMessage({type:'volume', parameter:1}, '*');
-                        document.querySelectorAll(`iframe[id^=panda-]`)[0].contentWindow.postMessage({type:'currentTime', parameter:0}, '*');
+                        CUSTOM_ITEMS_CONTAINER.style.display = 'none';
+                        p.setCurrentTime(0);
+                        p.setVolume(1);
                     }
                 }
             });
