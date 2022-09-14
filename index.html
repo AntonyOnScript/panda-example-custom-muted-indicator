@@ -53,8 +53,8 @@
         </div>
         <!-- Panda Video iframe below -->
         <iframe 
-            id="panda-5123ab3b-9080-4d36-a7e7-f744fc28edf6" 
-            src="https://player-vz-12dc5645-25b.tv.pandavideo.com.br/embed/?v=5123ab3b-9080-4d36-a7e7-f744fc28edf6&controls=play-large&alternativeProgress=true&autoplay=true&muted=true&smartAutoplay=false&initDisabledControls=true" 
+        id="panda-5123ab3b-9080-4d36-a7e7-f744fc28edf6" 
+        src="https://player-vz-12dc5645-25b.tv.pandavideo.com.br/embed/?v=5123ab3b-9080-4d36-a7e7-f744fc28edf6&controls=play-large&alternativeProgress=true&autoplay=true&muted=true&smartAutoplay=false&initDisabledControls=true" 
             style="border:none;position:absolute;top:0;left:0;" 
             allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture" 
             allowfullscreen=true 
@@ -73,7 +73,7 @@
                     // on click on custom muted indicator items container
                     CUSTOM_ITEMS_CONTAINER.onclick = function () {
                         CUSTOM_ITEMS_CONTAINER.style.display = 'none';
-                        document.querySelectorAll(`iframe[id^=panda-]`)[0].contentWindow.postMessage({ type: 'enable_all_controls'}, '*');
+                        p.showControls();
                         p.setCurrentTime(0);
                         p.setVolume(1);
                     }
